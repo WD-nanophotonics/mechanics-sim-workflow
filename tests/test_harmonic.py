@@ -19,3 +19,8 @@ def test_harmonic_energy_includes_kinetic_and_potential_terms() -> None:
 def test_harmonic_energy_requires_positive_mass() -> None:
     with pytest.raises(ValueError, match="mass must be positive"):
         harmonic_energy(position=1.0, velocity=1.0, stiffness=1.0, mass=0.0)
+
+
+def test_harmonic_energy_rejects_negative_mass() -> None:
+    with pytest.raises(ValueError, match="mass must be positive"):
+        harmonic_energy(position=1.0, velocity=1.0, stiffness=1.0, mass=-1.0)
