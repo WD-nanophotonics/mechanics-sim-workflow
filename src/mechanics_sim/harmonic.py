@@ -1,6 +1,6 @@
 """One-dimensional harmonic oscillator helpers."""
 
-from math import sqrt
+from math import pi, sqrt
 
 
 def harmonic_acceleration(position: float, stiffness: float, mass: float) -> float:
@@ -28,3 +28,12 @@ def harmonic_angular_frequency(stiffness: float, mass: float) -> float:
     if stiffness == 0:
         return 0.0
     return sqrt(stiffness / mass)
+
+
+def harmonic_period(stiffness: float, mass: float) -> float:
+    """Return the period of the oscillator."""
+    if mass <= 0:
+        raise ValueError("mass must be positive")
+    if stiffness <= 0:
+        raise ValueError("stiffness must be positive")
+    return 2 * pi / harmonic_angular_frequency(stiffness, mass)
