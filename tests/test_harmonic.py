@@ -6,6 +6,7 @@ from mechanics_sim import (
     harmonic_acceleration,
     harmonic_angular_frequency,
     harmonic_energy,
+    harmonic_frequency_hz,
     harmonic_period,
 )
 
@@ -50,6 +51,25 @@ def test_harmonic_angular_frequency_requires_positive_mass(mass: float) -> None:
 def test_harmonic_angular_frequency_rejects_negative_stiffness() -> None:
     with pytest.raises(ValueError, match="stiffness must be non-negative"):
         harmonic_angular_frequency(stiffness=-1.0, mass=1.0)
+
+
+def test_harmonic_frequency_hz_for_positive_stiffness_and_mass() -> None:
+    assert harmonic_frequency_hz(stiffness=4.0, mass=1.0) == pytest.approx(1 / pi)
+
+
+def test_harmonic_frequency_hz_is_zero_for_zero_stiffness() -> None:
+    assert harmonic_frequency_hz(stiffness=0.0, mass=2.0) == 0.0
+
+
+@pytest.mark.parametrize("mass", [0.0, -1.0])
+def test_harmonic_frequency_hz_requires_positive_mass(mass: float) -> None:
+    with pytest.raises(ValueError, match="mass must be positive"):
+        harmonic_frequency_hz(stiffness=1.0, mass=mass)
+
+
+def test_harmonic_frequency_hz_rejects_negative_stiffness() -> None:
+    with pytest.raises(ValueError, match="stiffness must be non-negative"):
+        harmonic_frequency_hz(stiffness=-1.0, mass=1.0)
 
 
 def test_harmonic_period_for_positive_stiffness_and_mass() -> None:

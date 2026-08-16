@@ -30,6 +30,11 @@ def harmonic_angular_frequency(stiffness: float, mass: float) -> float:
     return sqrt(stiffness / mass)
 
 
+def harmonic_frequency_hz(stiffness: float, mass: float) -> float:
+    """Return the oscillator frequency in hertz."""
+    return harmonic_angular_frequency(stiffness, mass) / (2 * pi)
+
+
 def harmonic_period(stiffness: float, mass: float) -> float:
     """Return the period of the oscillator."""
     if mass <= 0:
